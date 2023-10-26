@@ -37,6 +37,11 @@ public class ParkingService {
 
                 Date inTime = new Date();
                 Ticket ticket = new Ticket();
+
+                int visitedTimes = ticketDAO.getNbTicket(vehicleRegNumber);
+                if (visitedTimes > 0 && visitedTimes%2 == 1)
+                    ticket.setDiscount(true);
+                    
                 //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
                 //ticket.setId(ticketID);
                 ticket.setParkingSpot(parkingSpot);
@@ -108,8 +113,11 @@ public class ParkingService {
                 ParkingSpot parkingSpot = ticket.getParkingSpot();
                 parkingSpot.setAvailable(true);
                 parkingSpotDAO.updateParking(parkingSpot);
-                System.out.println("Please pay the parking fare:" + ticket.getPrice());
-                System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
+                if (ticket.getPrice() == 0 )
+                    System.out.println("Free - less than 30 minutes");
+                else
+                    System.out.println("Please pay the parking fare: " + ticket.getPrice());
+                System.out.println("Recorded out-time for vehicle number: " + ticket.getVehicleRegNumber() + " is:" + outTime);
             }else{
                 System.out.println("Unable to update ticket information. Error occurred");
             }
