@@ -152,4 +152,43 @@ public class FareCalculatorServiceTest {
         assertEquals( (24 * Fare.CAR_RATE_PER_HOUR) , ticket.getPrice());
     }
 
+    @Test
+    public void calculateFareCarWithDiscount(){
+        Date inTime = new Date();
+        inTime.setTime( System.currentTimeMillis() - (  24 * 60 * 60 * 1000) );//24 hours parking time should give 24 * parking fare per hour
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+        ticket.setDiscount(true);
+        fareCalculatorService.calculateFare(ticket);
+        assertTrue(() -> {
+            if(ticket.getDiscount() == true)
+                return (24 * Fare.CAR_RATE_PER_HOUR) * 0.95 == ticket.getPrice();
+            else 
+                return (24 * Fare.CAR_RATE_PER_HOUR) == ticket.getPrice();
+        });
+    }
+
+    @Test
+    public void calculateFareBikeWithDiscount(){
+        Date inTime = new Date();
+        inTime.setTime( System.currentTimeMillis() - (  24 * 60 * 60 * 1000) );//24 hours parking time should give 24 * parking fare per hour
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE,false);
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+        ticket.setDiscount(true);
+        fareCalculatorService.calculateFare(ticket);
+        assertTrue(() -> {
+            if(ticket.getDiscount() == true)
+                return (24 * Fare.BIKE_RATE_PER_HOUR) * 0.95 == ticket.getPrice();
+            else 
+                return (24 * Fare.BIKE_RATE_PER_HOUR) == ticket.getPrice();
+        });
+    }
 }
