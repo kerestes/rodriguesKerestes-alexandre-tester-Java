@@ -9,7 +9,7 @@ public class Ticket {
     private double price;
     private Date inTime;
     private Date outTime;
-    private boolean discount;
+    private boolean discount = false;
 
     public boolean getDiscount(){
         return discount;

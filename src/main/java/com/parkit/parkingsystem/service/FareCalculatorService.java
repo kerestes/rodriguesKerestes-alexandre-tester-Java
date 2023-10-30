@@ -5,9 +5,10 @@ import com.parkit.parkingsystem.model.Ticket;
 
 public class FareCalculatorService {
 
-    private double discountTaxe = 1;
-
     public void calculateFare(Ticket ticket){
+
+        double discountTaxe = 1;
+
         if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){
             throw new IllegalArgumentException("Out time provided is incorrect:"+ticket.getOutTime().toString());
         }
@@ -20,7 +21,7 @@ public class FareCalculatorService {
         double duration = (outHour - inHour);
         duration /= 3600000;
 
-        if(ticket.getDiscount())
+        if(ticket.getDiscount() == true)
             discountTaxe = 0.95;
 
         if (duration >= 0.5){

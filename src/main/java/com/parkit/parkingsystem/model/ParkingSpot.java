@@ -1,8 +1,16 @@
 package com.parkit.parkingsystem.model;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.parkit.parkingsystem.constants.ParkingType;
+import com.parkit.parkingsystem.dao.ParkingSpotDAO;
+import com.parkit.parkingsystem.service.InteractiveShell;
 
 public class ParkingSpot {
+
+    private static final Logger logger = LogManager.getLogger("ParkingSpot");
+
     private int number;
     private ParkingType parkingType;
     private boolean isAvailable;
@@ -11,6 +19,26 @@ public class ParkingSpot {
         this.number = number;
         this.parkingType = parkingType;
         this.isAvailable = isAvailable;
+    }
+
+    public static ParkingSpot getNextParkingNumberIfAvailable(){        
+        ParkingSpotDAO parkingSpotDAO = new ParkingSpotDAO();
+        int parkingNumber=0;
+        ParkingSpot parkingSpot = null;
+        try{
+            ParkingType parkingType = InteractiveShell.getVehichleType();
+            parkingNumber = parkingSpotDAO.getNextAvailableSlot(parkingType);
+            if(parkingNumber > 0){
+                parkingSpot = new ParkingSpot(parkingNumber,parkingType, true);
+            }else{
+                throw new Exception("Error fetching parking number from DB. Parking slots might be full");
+            }
+        }catch(IllegalArgumentException ie){
+            logger.error("Error parsing user input for type of vehicle", ie);
+        }catch(Exception e){
+            logger.error("Error fetching next available parking slot", e);
+        }
+        return parkingSpot;
     }
 
     public int getId() {
