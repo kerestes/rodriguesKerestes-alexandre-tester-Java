@@ -1,0 +1,13 @@
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/util/InputReaderUtil.java
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/service/InteractiveShell.java
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/service/FareCalculatorService.java
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/config/DataBaseConfig.java
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/dao/TicketDAO.java
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/model/ParkingSpot.java
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/App.java
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/constants/Fare.java
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/constants/ParkingType.java
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/constants/DBConstants.java
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/model/Ticket.java
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/dao/ParkingSpotDAO.java
+/home/alexandrekerestes/Documents/Pro/java/OpenClassRooms/mission_4/git/parkingsystem/src/main/java/com/parkit/parkingsystem/service/ParkingService.java
