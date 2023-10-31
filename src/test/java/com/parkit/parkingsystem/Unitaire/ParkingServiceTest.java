@@ -128,24 +128,23 @@ public class ParkingServiceTest {
     @Test
     public void testGetNextParkingNumberIfAvailableParkingNumberWrongArgument(){
 
-        System.setOut(new PrintStream(outputStreamCaptor));
+
 
         when(InteractiveShell.getVehichleType()).thenThrow(new IllegalArgumentException("Entered input is invalid"));
         parkingService = new ParkingService(parkingSpotDAO, ticketDAO);
 
+        LogCaptor logCaptor = LogCaptor.forClass(ParkingSpot.class);
+
         parkingService.processIncomingVehicle();   
         
-        assertTrue(outputStreamCaptor.toString().trim().contains("Error parsing user input for type of vehicle"));
+        assertTrue(logCaptor.getLogs().contains("Error parsing user input for type of vehicle"));
 
     }
 
     @Test
     public void processExitingVehicleTest(){
 
-        Ticket ticket = new Ticket();
-        ticket.setInTime(new Date(System.currentTimeMillis() - (60*60*1000)));
-        ticket.setParkingSpot(parkingSpot);
-        ticket.setVehicleRegNumber("ABCDEF");
+        Ticket ticket = createTicket();
 
         when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
         when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
@@ -164,10 +163,7 @@ public class ParkingServiceTest {
 
         System.setOut(new PrintStream(outputStreamCaptor));
 
-        Ticket ticket = new Ticket();
-        ticket.setInTime(new Date(System.currentTimeMillis() - (60*60*1000)));
-        ticket.setParkingSpot(parkingSpot);
-        ticket.setVehicleRegNumber("ABCDEF");
+        Ticket ticket = createTicket();
 
         when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
         when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(false);
@@ -177,6 +173,52 @@ public class ParkingServiceTest {
         parkingService.processExitingVehicle();
         
         assertEquals("Unable to update ticket information. Error occurred", outputStreamCaptor.toString().trim());
+
+        System.setOut(System.out);
+    }
+
+    @Test
+    public void processExitingVehicleFreeParkingTest(){
+
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        Ticket ticket = createTicket();
+        ticket.setInTime(new Date(System.currentTimeMillis()));
+
+        when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
+        when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
+        when(parkingSpotDAO.updateParking(any(ParkingSpot.class))).thenReturn(true);
+
+        parkingService = new ParkingService(parkingSpotDAO, ticketDAO);
+
+        parkingService.processExitingVehicle();
+        assertTrue(outputStreamCaptor.toString().contains("Free - less than 30 minutes"));
+
+        System.setOut(System.out);
+    }
+
+    @Test
+    public void processExitingVehicleUnknowVheicleTest(){
+
+        when(ticketDAO.getTicket(anyString())).thenThrow(new RuntimeException());
+
+        parkingService = new ParkingService(parkingSpotDAO, ticketDAO);
+
+        LogCaptor logCaptor = LogCaptor.forClass(ParkingService.class);
+
+        parkingService.processExitingVehicle();
+        assertTrue(logCaptor.getLogs().contains("Unable to process exiting vehicle"));
+       
+    }
+
+    
+
+    private Ticket createTicket(){
+        Ticket ticket = new Ticket();
+        ticket.setInTime(new Date(System.currentTimeMillis() - (60*60*1000)));
+        ticket.setParkingSpot(parkingSpot);
+        ticket.setVehicleRegNumber("ABCDEF");
+        return ticket;
     }
 
 }

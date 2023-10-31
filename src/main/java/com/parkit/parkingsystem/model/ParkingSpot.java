@@ -9,7 +9,7 @@ import com.parkit.parkingsystem.service.InteractiveShell;
 
 public class ParkingSpot {
 
-    private static final Logger logger = LogManager.getLogger("ParkingSpot");
+    private static final Logger logger = LogManager.getLogger(ParkingSpot.class);
 
     private int number;
     private ParkingType parkingType;

@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class DataBaseConfig {
 
-    private static final Logger logger = LogManager.getLogger("DataBaseConfig");
+    private static final Logger logger = LogManager.getLogger(DataBaseConfig.class);
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         logger.info("Create DB connection");
