@@ -9,23 +9,23 @@ import org.apache.logging.log4j.Logger;
 
 <span class="nc" id="L10">public class InteractiveShell {</span>
 
-<span class="fc" id="L12">    private static final Logger logger = LogManager.getLogger(&quot;InteractiveShell&quot;);</span>
+<span class="fc" id="L12">    private static final Logger logger = LogManager.getLogger(InteractiveShell.class);</span>
 
     public static void loadInterface(){
-<span class="nc" id="L15">        boolean continueApp = true;</span>
+<span class="fc" id="L15">        boolean continueApp = true;</span>
 
-<span class="nc" id="L17">        logger.info(&quot;App initialized!!!&quot;);</span>
-<span class="nc" id="L18">        System.out.println(&quot;Welcome to Parking System!&quot;);</span>
+<span class="fc" id="L17">        logger.info(&quot;App initialized!!!&quot;);</span>
+<span class="fc" id="L18">        System.out.println(&quot;Welcome to Parking System!&quot;);</span>
 
-<span class="nc" id="L20">        InputReaderUtil inputReaderUtil = new InputReaderUtil();</span>
-<span class="nc" id="L21">        ParkingSpotDAO parkingSpotDAO = new ParkingSpotDAO();</span>
-<span class="nc" id="L22">        TicketDAO ticketDAO = new TicketDAO();</span>
-<span class="nc" id="L23">        ParkingService parkingService = new ParkingService(parkingSpotDAO, ticketDAO);</span>
+<span class="fc" id="L20">        InputReaderUtil inputReaderUtil = new InputReaderUtil();</span>
+<span class="fc" id="L21">        ParkingSpotDAO parkingSpotDAO = new ParkingSpotDAO();</span>
+<span class="fc" id="L22">        TicketDAO ticketDAO = new TicketDAO();</span>
+<span class="fc" id="L23">        ParkingService parkingService = new ParkingService(parkingSpotDAO, ticketDAO);</span>
 
-<span class="nc bnc" id="L25" title="All 2 branches missed.">        while(continueApp){</span>
-<span class="nc" id="L26">            loadMenu();</span>
-<span class="nc" id="L27">            int option = inputReaderUtil.readSelection();</span>
-<span class="nc bnc" id="L28" title="All 4 branches missed.">            switch(option){</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        while(continueApp){</span>
+<span class="fc" id="L26">            loadMenu();</span>
+<span class="fc" id="L27">            int option = inputReaderUtil.readSelection();</span>
+<span class="pc bpc" id="L28" title="2 of 4 branches missed.">            switch(option){</span>
                 case 1: {
 <span class="nc" id="L30">                    parkingService.processIncomingVehicle();</span>
 <span class="nc" id="L31">                    break;</span>
@@ -35,26 +35,26 @@ import org.apache.logging.log4j.Logger;
 <span class="nc" id="L35">                    break;</span>
                 }
                 case 3: {
-<span class="nc" id="L38">                    System.out.println(&quot;Exiting from the system!&quot;);</span>
-<span class="nc" id="L39">                    continueApp = false;</span>
-<span class="nc" id="L40">                    break;</span>
+<span class="fc" id="L38">                    System.out.println(&quot;Exiting from the system!&quot;);</span>
+<span class="fc" id="L39">                    continueApp = false;</span>
+<span class="fc" id="L40">                    break;</span>
                 }
-<span class="nc" id="L42">                default: System.out.println(&quot;Unsupported option. Please enter a number corresponding to the provided menu&quot;);</span>
+<span class="fc" id="L42">                default: System.out.println(&quot;Unsupported option. Please enter a number corresponding to the provided menu&quot;);</span>
             }
-        }
-<span class="nc" id="L45">    }</span>
+<span class="fc" id="L44">        }</span>
+<span class="fc" id="L45">    }</span>
 
     private static void loadMenu(){
-<span class="nc" id="L48">        System.out.println(&quot;Please select an option. Simply enter the number to choose an action&quot;);</span>
-<span class="nc" id="L49">        System.out.println(&quot;1 New Vehicle Entering - Allocate Parking Space&quot;);</span>
-<span class="nc" id="L50">        System.out.println(&quot;2 Vehicle Exiting - Generate Ticket Price&quot;);</span>
-<span class="nc" id="L51">        System.out.println(&quot;3 Shutdown System&quot;);</span>
-<span class="nc" id="L52">    }</span>
+<span class="fc" id="L48">        System.out.println(&quot;Please select an option. Simply enter the number to choose an action&quot;);</span>
+<span class="fc" id="L49">        System.out.println(&quot;1 New Vehicle Entering - Allocate Parking Space&quot;);</span>
+<span class="fc" id="L50">        System.out.println(&quot;2 Vehicle Exiting - Generate Ticket Price&quot;);</span>
+<span class="fc" id="L51">        System.out.println(&quot;3 Shutdown System&quot;);</span>
+<span class="fc" id="L52">    }</span>
 
     public static String getVehichleRegNumber() throws Exception {
-<span class="nc" id="L55">        InputReaderUtil inputReaderUtil = new InputReaderUtil();</span>
-<span class="nc" id="L56">        System.out.println(&quot;Please type the vehicle registration number and press enter key&quot;);</span>
-<span class="nc" id="L57">        return inputReaderUtil.readVehicleRegistrationNumber();</span>
+<span class="fc" id="L55">        InputReaderUtil inputReaderUtil = new InputReaderUtil();</span>
+<span class="fc" id="L56">        System.out.println(&quot;Please type the vehicle registration number and press enter key&quot;);</span>
+<span class="fc" id="L57">        return inputReaderUtil.readVehicleRegistrationNumber();</span>
     }
 
     public static ParkingType getVehichleType(){
@@ -62,17 +62,17 @@ import org.apache.logging.log4j.Logger;
 <span class="fc" id="L62">        System.out.println(&quot;Please select vehicle type from menu&quot;);</span>
 <span class="fc" id="L63">        System.out.println(&quot;1 CAR&quot;);</span>
 <span class="fc" id="L64">        System.out.println(&quot;2 BIKE&quot;);</span>
-<span class="nc" id="L65">        int input = inputReaderUtil.readSelection();</span>
-<span class="nc bnc" id="L66" title="All 3 branches missed.">        switch(input){</span>
+<span class="fc" id="L65">        int input = inputReaderUtil.readSelection();</span>
+<span class="fc bfc" id="L66" title="All 3 branches covered.">        switch(input){</span>
             case 1: {
-<span class="nc" id="L68">                return ParkingType.CAR;</span>
+<span class="fc" id="L68">                return ParkingType.CAR;</span>
             }
             case 2: {
-<span class="nc" id="L71">                return ParkingType.BIKE;</span>
+<span class="fc" id="L71">                return ParkingType.BIKE;</span>
             }
             default: {
-<span class="nc" id="L74">                System.out.println(&quot;Incorrect input provided&quot;);</span>
-<span class="nc" id="L75">                throw new IllegalArgumentException(&quot;Entered input is invalid&quot;);</span>
+<span class="fc" id="L74">                System.out.println(&quot;Incorrect input provided&quot;);</span>
+<span class="fc" id="L75">                throw new IllegalArgumentException(&quot;Entered input is invalid&quot;);</span>
             }
         }
     }
