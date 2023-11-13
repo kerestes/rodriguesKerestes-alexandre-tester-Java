@@ -1,8 +1,5 @@
 package com.parkit.parkingsystem.integration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +18,8 @@ import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TicketDAOIT {
@@ -67,7 +66,7 @@ public class TicketDAOIT {
             Optional<Date> optionalDateOut = Optional.ofNullable(rs.getTimestamp(5));
             assertTrue(rs.getInt(1) == 1);
             assertTrue(optionalDateIn.isPresent());
-            assertTrue(optionalDateOut.isEmpty());
+            assertFalse(optionalDateOut.isPresent());
         }
 
         closeDB();
@@ -117,6 +116,14 @@ public class TicketDAOIT {
             assertEquals(rs.getLong(2), 2);
             assertTrue(rs.getInt(3) == 2);
         }
+    }
+
+    @Test
+    public void testDoubleRegNum(){
+        boolean testSameRegNum = ticketDAO.verifyRegNumber("ABCDEF");
+        boolean testNewRegNum = ticketDAO.verifyRegNumber("GHIJKLM");
+        assertFalse(testSameRegNum);
+        assertTrue(testNewRegNum);
     }
 
     private void startDB(String dbConstants) throws ClassNotFoundException, SQLException{

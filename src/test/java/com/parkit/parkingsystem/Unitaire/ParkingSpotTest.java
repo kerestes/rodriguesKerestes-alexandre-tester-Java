@@ -2,40 +2,40 @@ package com.parkit.parkingsystem.Unitaire;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.ByteArrayInputStream;
+import static org.mockito.Mockito.clearAllCaches;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.model.ParkingSpot;
+import com.parkit.parkingsystem.service.InteractiveShell;
 
 import nl.altindag.log.LogCaptor;
 
 public class ParkingSpotTest {
 
-    
-
-    @BeforeAll
-    public static void initStdIn(){
-        System.setIn(new ByteArrayInputStream("0".getBytes()));
-    }
-
     @AfterAll
     private static void clearBufferRead(){
-        //System.setIn(System.in);
+        clearAllCaches();
     }
 
     @Test
     public void getNextParkingNumberIfAvailable(){
-        LogCaptor logCaptor = LogCaptor.forClass(ParkingSpot.class);
+        try(MockedStatic<InteractiveShell> mock = mockStatic(InteractiveShell.class)){
 
-        ParkingSpot.getNextParkingNumberIfAvailable();
-            
-        assertTrue(logCaptor.getLogs().toString().contains("Error parsing user input for type of vehicle"));
+            when(InteractiveShell.getVehichleType()).thenThrow(new IllegalArgumentException("Entered input is invalid"));
 
+            LogCaptor log = LogCaptor.forClass(ParkingSpot.class);
+
+            ParkingSpot.getNextParkingNumberIfAvailable();
+
+            assertTrue(log.getLogs().contains("Error parsing user input for type of vehicle"));
+
+        }
     }
 
     @Test
@@ -53,4 +53,5 @@ public class ParkingSpotTest {
 
         assertFalse(parkingSpot.equals(parkingSpot2));
     }
+    
 }

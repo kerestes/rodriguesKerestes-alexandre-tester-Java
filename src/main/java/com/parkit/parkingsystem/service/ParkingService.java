@@ -28,30 +28,35 @@ public class ParkingService {
             ParkingSpot parkingSpot = ParkingSpot.getNextParkingNumberIfAvailable();
             if(parkingSpot !=null && parkingSpot.getId() > 0){
                 String vehicleRegNumber = InteractiveShell.getVehichleRegNumber();
-                parkingSpot.setAvailable(false);
-                parkingSpotDAO.updateParking(parkingSpot);//allot this parking space and mark it's availability as false
+                if(ticketDAO.verifyRegNumber(vehicleRegNumber)) {
+                    parkingSpot.setAvailable(false);
+                    parkingSpotDAO.updateParking(parkingSpot);//allot this parking space and mark it's availability as false
 
-                Date inTime = new Date();
-                Ticket ticket = new Ticket();
+                    Date inTime = new Date();
+                    Ticket ticket = new Ticket();
 
-                int visitedTimes = ticketDAO.getNbTicket(vehicleRegNumber);
-                if (visitedTimes > 0 && visitedTimes%2 == 1)
-                    ticket.setDiscount(true);
-                    
-                //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
-                //ticket.setId(ticketID);
-                ticket.setParkingSpot(parkingSpot);
-                ticket.setVehicleRegNumber(vehicleRegNumber);
-                ticket.setPrice(0);
-                ticket.setInTime(inTime);
-                ticket.setOutTime(null);
-                ticketDAO.saveTicket(ticket);
+                    int visitedTimes = ticketDAO.getNbTicket(vehicleRegNumber);
+                    if (visitedTimes > 0 && visitedTimes%2 == 1)
+                        ticket.setDiscount(true);
 
-                System.out.println("Generated Ticket and saved in DB");
-                if (visitedTimes%2  == 1)
-                    System.out.println("Good to see you again! As a regular user of our parking lot, you will get a 5% discount");
-                System.out.println("Please park your vehicle in spot number:"+parkingSpot.getId());
-                System.out.println("Recorded in-time for vehicle number:"+vehicleRegNumber+" is:"+inTime);
+                    //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
+                    //ticket.setId(ticketID);
+                    ticket.setParkingSpot(parkingSpot);
+                    ticket.setVehicleRegNumber(vehicleRegNumber);
+                    ticket.setPrice(0);
+                    ticket.setInTime(inTime);
+                    ticket.setOutTime(null);
+                    ticketDAO.saveTicket(ticket);
+
+                    System.out.println("Generated Ticket and saved in DB");
+                    if (visitedTimes%2  == 1)
+                        System.out.println("Good to see you again! As a regular user of our parking lot, you will get a 5% discount");
+                    System.out.println("Please park your vehicle in spot number:"+parkingSpot.getId());
+                    System.out.println("Recorded in-time for vehicle number:"+vehicleRegNumber+" is:"+inTime);
+                } else {
+                    logger.error("Duplacation registration number");
+                    System.out.println("There is a current parked vehicle with the same registration number");
+                }
             } 
         }catch(Exception e){
             logger.error("Unable to process incoming vehicle");

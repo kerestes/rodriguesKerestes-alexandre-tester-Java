@@ -104,9 +104,31 @@ public class TicketDAO {
             dataBaseConfig.closeResultSet(rs);
             dataBaseConfig.closePreparedStatement(ps);
         }catch (Exception ex){
-                logger.error("Error fetching next available slot",ex);
+                logger.error("Error fetching number of tickets",ex);
         }finally {
                 dataBaseConfig.closeConnection(con);
+        }
+        return result;
+    }
+
+    public boolean verifyRegNumber(String vehicleRegNumber){
+        Connection con = null;
+        boolean result = true;
+        try {
+            con = dataBaseConfig.getConnection();
+            PreparedStatement ps = con.prepareStatement(DBConstants.VERIFY_REG_NUMBER);
+            //vehicleRegNumber
+            ps.setString(1,vehicleRegNumber);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                result = false;
+            }
+            dataBaseConfig.closeResultSet(rs);
+            dataBaseConfig.closePreparedStatement(ps);
+        }catch (Exception ex){
+            logger.error("Error fetching registered vehicle",ex);
+        }finally {
+            dataBaseConfig.closeConnection(con);
         }
         return result;
     }

@@ -1,9 +1,9 @@
 package com.parkit.parkingsystem.Unitaire;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -21,31 +21,29 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.service.InteractiveShell;
 import nl.altindag.log.LogCaptor;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
-@TestMethodOrder(OrderAnnotation.class)
 public class InteractiveShellTest {
 
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
-    @BeforeAll
-    private static void inputSet(){
-        System.setIn(new ByteArrayInputStream("4\n3\n3\n3\nABCDEF\n1\n2\n3".getBytes()));
-    }
-
     @AfterEach
     private void freeSystemOut(){
+        System.setIn(System.in);
         System.setOut(System.out);
     }
 
     @AfterAll
     private static void clearBufferRead(){
-        //System.setIn(System.in);
+        System.setIn(System.in);
+        System.setOut(System.out);
     }
 
     @Test
-    @Order(1)
     public void loadAndExitingInterfaceTest() throws IOException{
         
+        System.setIn(new ByteArrayInputStream("4\n3".getBytes()));
         System.setOut(new PrintStream(outputStreamCaptor));
 
         InteractiveShell.loadInterface();
@@ -56,8 +54,10 @@ public class InteractiveShellTest {
     }
 
     @Test
-    @Order(2)
     public void loadInterfaceLogTest(){
+
+        System.setIn(new ByteArrayInputStream("3".getBytes()));
+
         LogCaptor logCaptor = LogCaptor.forClass(InteractiveShell.class);
         InteractiveShell.loadInterface();
 
@@ -65,8 +65,9 @@ public class InteractiveShellTest {
     }
 
     @Test
-    @Order(3)
     public void loadMenuTest(){
+
+        System.setIn(new ByteArrayInputStream("3".getBytes()));
 
         System.setOut(new PrintStream(outputStreamCaptor));
 
@@ -80,17 +81,19 @@ public class InteractiveShellTest {
     }
 
     @Test
-    @Order(4)
     public void getVehichleRegNumberTest() throws Exception{
         
+        System.setIn(new ByteArrayInputStream("ABCDEF".getBytes()));
+
         String test = InteractiveShell.getVehichleRegNumber();
 
         assertEquals("ABCDEF", test);
     }
 
     @Test
-    @Order(5)
     public void getVehichleTypeCarTest(){
+
+        System.setIn(new ByteArrayInputStream("1".getBytes()));
 
         ParkingType test = InteractiveShell.getVehichleType();
 
@@ -99,8 +102,9 @@ public class InteractiveShellTest {
     }
 
     @Test
-    @Order(6)
     public void getVehichleTypeBikeTest(){
+
+        System.setIn(new ByteArrayInputStream("2".getBytes()));
 
         ParkingType test = InteractiveShell.getVehichleType();
 
@@ -109,8 +113,9 @@ public class InteractiveShellTest {
     }
 
     @Test
-    @Order(7)
     public void getVehichleTypeUnknowTest(){
+
+        System.setIn(new ByteArrayInputStream("3".getBytes()));
 
         assertThrows(IllegalArgumentException.class, () -> InteractiveShell.getVehichleType());
 

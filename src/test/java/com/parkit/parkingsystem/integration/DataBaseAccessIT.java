@@ -2,16 +2,13 @@ package com.parkit.parkingsystem.integration;
 
 import org.junit.jupiter.api.Test;
 
-import com.mysql.cj.xdevapi.PreparableStatement;
 import com.parkit.parkingsystem.config.DataBaseConfig;
 
 import nl.altindag.log.LogCaptor;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.sql.*;
 

@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 <span class="fc" id="L8">public class InputReaderUtil {</span>
 
-<span class="fc" id="L10">    private static Scanner scan = new Scanner(System.in);</span>
+<span class="fc" id="L10">    private Scanner scan = new Scanner(System.in);</span>
 <span class="fc" id="L11">    private static final Logger logger = LogManager.getLogger(InputReaderUtil.class);</span>
 
     public int readSelection() {
@@ -24,8 +24,8 @@ import java.util.Scanner;
     public String readVehicleRegistrationNumber() throws Exception {
         try {
 <span class="fc" id="L26">            String vehicleRegNumber= scan.nextLine();</span>
-<span class="pc bpc" id="L27" title="2 of 4 branches missed.">            if(vehicleRegNumber == null || vehicleRegNumber.trim().length()==0) {</span>
-<span class="nc" id="L28">                throw new IllegalArgumentException(&quot;Invalid input provided&quot;);</span>
+<span class="pc bpc" id="L27" title="1 of 4 branches missed.">            if(vehicleRegNumber == null || vehicleRegNumber.trim().length()==0) {</span>
+<span class="fc" id="L28">                throw new IllegalArgumentException(&quot;Invalid input provided&quot;);</span>
             }
 <span class="fc" id="L30">            return vehicleRegNumber;</span>
 <span class="fc" id="L31">        }catch(Exception e){</span>

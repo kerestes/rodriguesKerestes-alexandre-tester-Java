@@ -1,9 +1,6 @@
 package com.parkit.parkingsystem.integration;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import com.parkit.parkingsystem.config.DataBaseConfig;
 import com.parkit.parkingsystem.constants.DBConstants;
@@ -11,7 +8,7 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 
 import nl.altindag.log.LogCaptor;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
@@ -23,15 +20,21 @@ import java.sql.SQLException;
 public class ParkingSpotIT {
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
-
+    @AfterEach
+    private void freeSystemOut(){
+        System.setIn(System.in);
+        System.setOut(System.out);
+    }
     @AfterAll
     private static void clearBufferRead(){
-        //System.setIn(System.in);
+        System.setIn(System.in);
+        System.setOut(System.out);
     }
 
     @Test
-    @Disabled
     public void fullParkingSpot(){
+
+        System.setIn(new ByteArrayInputStream("1".getBytes()));
 
         Connection con = null;
         try {
@@ -41,8 +44,6 @@ public class ParkingSpotIT {
             dataBaseConfig.closeConnection(con);
 
             LogCaptor logCaptor = LogCaptor.forClass(ParkingSpot.class);
-
-            System.setIn(new ByteArrayInputStream("1".getBytes()));
 
             ParkingSpot.getNextParkingNumberIfAvailable();
 
@@ -57,6 +58,15 @@ public class ParkingSpotIT {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+    }
+
+    @Test
+    public void getNextParkingAvailableIT(){
+
+        System.setIn(new ByteArrayInputStream("1".getBytes()));
+
+        ParkingSpot parkingSpot = ParkingSpot.getNextParkingNumberIfAvailable();
+
+        assertEquals(1, parkingSpot.getId());
     }
 }

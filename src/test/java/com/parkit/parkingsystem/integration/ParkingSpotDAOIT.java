@@ -14,7 +14,6 @@ import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 import com.parkit.parkingsystem.integration.config.WrongDataBaseTestConfig;
 import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
 import com.parkit.parkingsystem.model.ParkingSpot;
-import com.parkit.parkingsystem.service.InteractiveShell;
 
 import nl.altindag.log.LogCaptor;
 

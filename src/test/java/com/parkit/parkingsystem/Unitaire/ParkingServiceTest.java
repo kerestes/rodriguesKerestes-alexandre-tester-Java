@@ -13,6 +13,7 @@ import nl.altindag.log.LogCaptor;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,9 +41,6 @@ public class ParkingServiceTest {
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @Mock
-    private Logger logger;
-
-    @Mock
     private static InputReaderUtil inputReaderUtil;
     @Mock
     private static ParkingSpotDAO parkingSpotDAO;
@@ -62,6 +60,11 @@ public class ParkingServiceTest {
         }
     }
 
+    @AfterAll
+    private static void realeseAll(){
+        clearAllCaches();
+    }
+
     @BeforeEach
     private void setUpPerTest() {
 
@@ -78,6 +81,7 @@ public class ParkingServiceTest {
         
             when(ticketDAO.getNbTicket(anyString())).thenReturn(1);
             when(ticketDAO.saveTicket(any(Ticket.class))).thenReturn(true);
+            when(ticketDAO.verifyRegNumber(anyString())).thenReturn(true);
             when(parkingSpotDAO.updateParking(any(ParkingSpot.class))).thenReturn(true);
 
             parkingService = new ParkingService(parkingSpotDAO, ticketDAO);
@@ -85,6 +89,7 @@ public class ParkingServiceTest {
             parkingService.processIncomingVehicle();
             verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
             verify(ticketDAO, Mockito.times(1)).getNbTicket(anyString());
+            verify(ticketDAO, Mockito.times(1)).verifyRegNumber(anyString());
             verify(ticketDAO, Mockito.times(1)).saveTicket(any(Ticket.class));
 
         }
@@ -100,6 +105,7 @@ public class ParkingServiceTest {
             
             when(ticketDAO.getNbTicket(anyString())).thenReturn(1);
             when(ticketDAO.saveTicket(any(Ticket.class))).thenReturn(true);
+            when(ticketDAO.verifyRegNumber(anyString())).thenReturn(true);
             when(parkingSpotDAO.updateParking(any(ParkingSpot.class))).thenReturn(true);
 
             parkingService = new ParkingService(parkingSpotDAO, ticketDAO);
@@ -127,8 +133,6 @@ public class ParkingServiceTest {
 
     @Test
     public void testGetNextParkingNumberIfAvailableParkingNumberWrongArgument(){
-
-
 
         when(InteractiveShell.getVehichleType()).thenThrow(new IllegalArgumentException("Entered input is invalid"));
         parkingService = new ParkingService(parkingSpotDAO, ticketDAO);

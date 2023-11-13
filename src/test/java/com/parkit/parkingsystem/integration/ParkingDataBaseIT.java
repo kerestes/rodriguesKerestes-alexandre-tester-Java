@@ -22,6 +22,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.clearAllCaches;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
@@ -63,7 +64,7 @@ public class ParkingDataBaseIT {
 
     @AfterAll
     private static void tearDown(){
-
+        clearAllCaches();
     }
 
     @Test

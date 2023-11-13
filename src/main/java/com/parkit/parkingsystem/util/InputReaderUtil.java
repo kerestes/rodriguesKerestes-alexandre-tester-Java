@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class InputReaderUtil {
 
-    private static Scanner scan = new Scanner(System.in);
+    private Scanner scan = new Scanner(System.in);
     private static final Logger logger = LogManager.getLogger(InputReaderUtil.class);
 
     public int readSelection() {
