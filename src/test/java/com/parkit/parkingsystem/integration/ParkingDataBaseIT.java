@@ -1,11 +1,11 @@
 package com.parkit.parkingsystem.integration;
 
-import com.parkit.parkingsystem.constants.DBConstants;
 import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
+import com.parkit.parkingsystem.integration.constants.DBConstantsTest;
 import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.service.InteractiveShell;
@@ -71,7 +71,7 @@ public class ParkingDataBaseIT {
     public void testParkingACar() throws ClassNotFoundException, SQLException{
         incomingVehicle();
 
-        startDB(DBConstants.VERIFY_INCOME_VEHICLE_TEST);
+        startDB(DBConstantsTest.VERIFY_INCOME_VEHICLE_TEST);
         if(rs.next()){
             assertTrue(rs.getString(1).equals("ABCDEF"));
             assertEquals(rs.getInt(2), 0);
@@ -84,7 +84,7 @@ public class ParkingDataBaseIT {
         incomingVehicle();
         Thread.sleep(1000);
         parkingLotExit();
-        startDB(DBConstants.VERIFY_EXIT_VEHICLE_TEST);
+        startDB(DBConstantsTest.VERIFY_EXIT_VEHICLE_TEST);
         if(rs.next()){
             assertTrue(!rs.getDate(1).equals(null));
         }
@@ -101,7 +101,7 @@ public class ParkingDataBaseIT {
         Thread.sleep(1000);
         parkingLotExit();
 
-        startDB(DBConstants.VERIFY_EXIT_VEHICLE_TEST);
+        startDB(DBConstantsTest.VERIFY_EXIT_VEHICLE_TEST);
         int count = 0;
 
         while(rs.next()){
@@ -125,7 +125,7 @@ public class ParkingDataBaseIT {
         rewindInTime(2);
         parkingLotExit();
 
-        startDB(DBConstants.GET_ARRAY_TICKETS_TEST);
+        startDB(DBConstantsTest.GET_ARRAY_TICKETS_TEST);
         while(rs.next()){
             double price = rs.getDouble(1);
             Long inTime = rs.getTimestamp(2).getTime();
@@ -186,7 +186,7 @@ public class ParkingDataBaseIT {
     private void rewindInTime(int id){
         try {
             con = dataBaseTestConfig.getConnection();
-            ps = con.prepareStatement(DBConstants.CHANGE_IN_DATE_TEST);
+            ps = con.prepareStatement(DBConstantsTest.CHANGE_IN_DATE_TEST);
             ps.setInt(1, id);
             rs = ps.executeQuery();
         } catch (SQLException e) {

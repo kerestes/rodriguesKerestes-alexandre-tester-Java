@@ -11,12 +11,5 @@
     public static final String GET_TICKET = &quot;select t.PARKING_NUMBER, t.ID, t.PRICE, t.IN_TIME, t.OUT_TIME, t.DISCOUNT, p.TYPE from ticket t,parking p where p.parking_number = t.parking_number and t.VEHICLE_REG_NUMBER=? and t.out_time is null order by t.OUT_TIME  limit 1&quot;;
 
     public static final String NUMBER_OF_TICKET = &quot;SELECT count(VEHICLE_REG_NUMBER) FROM ticket WHERE VEHICLE_REG_NUMBER = ?&quot;;
-
-    public static final String VERIFY_INCOME_VEHICLE_TEST = &quot;SELECT t.vehicle_reg_number, p.available FROM ticket t join parking p on t.parking_number = p.parking_number WHERE t.vehicle_reg_number = \&quot;ABCDEF\&quot; AND out_time = null&quot;;
-    public static final String VERIFY_EXIT_VEHICLE_TEST = &quot;SELECT t.out_time, p.available FROM ticket t join parking p on t.parking_number = p.parking_number WHERE t.vehicle_reg_number = \&quot;ABCDEF\&quot;&quot;;
-    public static final String TURN_OFF_PARKING_PLACE_TEST = &quot;UPDATE parking SET available = false&quot;;
-    public static final String TURN_ON_PARKING_PLACE_TEST = &quot;UPDATE parking SET available = TRUE&quot;;
-    public static final String CHANGE_IN_DATE_TEST = &quot;UPDATE ticket SET in_time = date_sub(curdate(), interval 1 day) WHERE id = ?&quot;;
-    public static final String GET_ARRAY_TICKETS_TEST = &quot;SELECT price, in_time, out_time, discount from ticket&quot;;
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

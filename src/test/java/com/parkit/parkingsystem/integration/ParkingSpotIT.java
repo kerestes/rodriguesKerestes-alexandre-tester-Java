@@ -1,9 +1,9 @@
 package com.parkit.parkingsystem.integration;
 
+import com.parkit.parkingsystem.integration.constants.DBConstantsTest;
 import org.junit.jupiter.api.*;
 
 import com.parkit.parkingsystem.config.DataBaseConfig;
-import com.parkit.parkingsystem.constants.DBConstants;
 import com.parkit.parkingsystem.model.ParkingSpot;
 
 import nl.altindag.log.LogCaptor;
@@ -39,7 +39,7 @@ public class ParkingSpotIT {
         Connection con = null;
         try {
             con = dataBaseConfig.getConnection();
-            PreparedStatement ps = con.prepareStatement(DBConstants.TURN_OFF_PARKING_PLACE_TEST);
+            PreparedStatement ps = con.prepareStatement(DBConstantsTest.TURN_OFF_PARKING_PLACE_TEST);
             ps.execute();
             dataBaseConfig.closeConnection(con);
 
@@ -50,7 +50,7 @@ public class ParkingSpotIT {
             assertTrue(logCaptor.getLogs().toString().contains("Error fetching next available parking slot"));
 
             con = dataBaseConfig.getConnection();
-            ps = con.prepareStatement(DBConstants.TURN_ON_PARKING_PLACE_TEST);
+            ps = con.prepareStatement(DBConstantsTest.TURN_ON_PARKING_PLACE_TEST);
             ps.execute();
             dataBaseConfig.closeConnection(con);
 
