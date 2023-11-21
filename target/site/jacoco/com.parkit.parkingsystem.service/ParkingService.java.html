@@ -28,7 +28,7 @@ public class ParkingService {
 <span class="fc" id="L28">            ParkingSpot parkingSpot = ParkingSpot.getNextParkingNumberIfAvailable();</span>
 <span class="pc bpc" id="L29" title="1 of 4 branches missed.">            if(parkingSpot !=null &amp;&amp; parkingSpot.getId() &gt; 0){</span>
 <span class="fc" id="L30">                String vehicleRegNumber = InteractiveShell.getVehichleRegNumber();</span>
-<span class="pc bpc" id="L31" title="1 of 2 branches missed.">                if(ticketDAO.verifyRegNumber(vehicleRegNumber)) {</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">                if(ticketDAO.verifyRegNumber(vehicleRegNumber)) {</span>
 <span class="fc" id="L32">                    parkingSpot.setAvailable(false);</span>
 <span class="fc" id="L33">                    parkingSpotDAO.updateParking(parkingSpot);//allot this parking space and mark it's availability as false</span>
 
@@ -54,8 +54,8 @@ public class ParkingService {
 <span class="fc" id="L54">                    System.out.println(&quot;Please park your vehicle in spot number:&quot;+parkingSpot.getId());</span>
 <span class="fc" id="L55">                    System.out.println(&quot;Recorded in-time for vehicle number:&quot;+vehicleRegNumber+&quot; is:&quot;+inTime);</span>
 <span class="fc" id="L56">                } else {</span>
-<span class="nc" id="L57">                    logger.error(&quot;Duplacation registration number&quot;);</span>
-<span class="nc" id="L58">                    System.out.println(&quot;There is a current parked vehicle with the same registration number&quot;);</span>
+<span class="fc" id="L57">                    logger.error(&quot;Duplacation registration number&quot;);</span>
+<span class="fc" id="L58">                    System.out.println(&quot;There is a current parked vehicle with the same registration number&quot;);</span>
                 }
             } 
 <span class="fc" id="L61">        }catch(Exception e){</span>

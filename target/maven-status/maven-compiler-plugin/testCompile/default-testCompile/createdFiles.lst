@@ -4,8 +4,8 @@ com/parkit/parkingsystem/integration/service/DataBasePrepareService.class
 com/parkit/parkingsystem/Unitaire/ParkingServiceTest.class
 com/parkit/parkingsystem/integration/ParkingSpotIT.class
 com/parkit/parkingsystem/Unitaire/FareCalculatorServiceTest.class
-com/parkit/parkingsystem/integration/ParkingDataBaseIT.class
 com/parkit/parkingsystem/Unitaire/ParkingSpotTest.class
+com/parkit/parkingsystem/integration/ParkingDataBaseIT.class
 com/parkit/parkingsystem/integration/config/WrongDataBaseTestConfig.class
 com/parkit/parkingsystem/integration/ParkingSpotDAOIT.class
 com/parkit/parkingsystem/Unitaire/InputReaderUtilTest.class

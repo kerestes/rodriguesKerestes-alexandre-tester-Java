@@ -116,10 +116,12 @@ public class ParkingDataBaseIT {
     }
 
     @Test
-    public void testParkingLotExitRecurringUserCar() throws ClassNotFoundException, SQLException{
+    public void testParkingLotExitRecurringUserCar() throws ClassNotFoundException, SQLException, InterruptedException{
         incomingVehicle();
         rewindInTime(1);
         parkingLotExit();
+
+        Thread.sleep(1000);
 
         incomingVehicle();
         rewindInTime(2);
@@ -140,7 +142,12 @@ public class ParkingDataBaseIT {
             double duration = outTime - inTime;
             duration /= 3600000;
 
-            assertEquals(duration * discountTaxe * Fare.CAR_RATE_PER_HOUR, price);
+            double expected = duration * discountTaxe * Fare.CAR_RATE_PER_HOUR;
+
+            if(duration<0.5)
+                expected = 0;
+
+            assertEquals(expected, price);
         }
 
     }

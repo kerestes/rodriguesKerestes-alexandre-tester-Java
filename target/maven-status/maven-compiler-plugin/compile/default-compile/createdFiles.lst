@@ -1,6 +1,6 @@
 com/parkit/parkingsystem/dao/ParkingSpotDAO.class
-com/parkit/parkingsystem/model/ParkingSpot.class
 com/parkit/parkingsystem/model/Ticket.class
+com/parkit/parkingsystem/model/ParkingSpot.class
 com/parkit/parkingsystem/config/DataBaseConfig.class
 com/parkit/parkingsystem/service/InteractiveShell.class
 com/parkit/parkingsystem/service/FareCalculatorService.class

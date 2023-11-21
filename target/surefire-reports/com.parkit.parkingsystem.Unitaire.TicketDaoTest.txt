@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.parkit.parkingsystem.Unitaire.TicketDaoTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.759 s - in com.parkit.parkingsystem.Unitaire.TicketDaoTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.203 s - in com.parkit.parkingsystem.Unitaire.TicketDaoTest
